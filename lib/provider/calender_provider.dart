@@ -5,17 +5,6 @@ class CalenderProvider extends BaseProvider {
   DateTime dateTime = DateTime(2021);
   List<int> months;
 
-  // void has30days(Months month) {
-  //   if (months.monthName == 'September' ||
-  //       months.monthName == 'April' ||
-  //       months.monthName == 'June' ||
-  //       months.monthName == 'November') {
-  //     months.numberOfDays = 31;
-  //   } else {
-  //     month.numberOfDays = 30;
-  //   }
-  // }
-
   int days(DateTime date) {
     DateTime currenMonth = DateTime(date.year, date.month, date.day);
     DateTime nextMonth = DateTime(
@@ -23,9 +12,12 @@ class CalenderProvider extends BaseProvider {
       currenMonth.month + 1,
       currenMonth.day,
     );
-    var daysInCurrentMonth = nextMonth.difference(currenMonth);
+    var daysInCurrentMonth = nextMonth.difference(currenMonth).inDays;
+    var weeks = daysInCurrentMonth ~/ 7;
+    var daysLeft = daysInCurrentMonth - (weeks * 7);
+    print(daysLeft);
     print(nextMonth.difference(currenMonth));
-    return daysInCurrentMonth.inDays;
+    return daysInCurrentMonth;
   }
 
   List createCalender(Months month) {
@@ -36,5 +28,9 @@ class CalenderProvider extends BaseProvider {
       return index + 1;
     }).toList();
     return allDates;
+  }
+
+  void getWeekNumber() {
+    final getDays = days(DateTime(2021, 1));
   }
 }
