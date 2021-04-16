@@ -6,59 +6,70 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  int month;
   @override
   void initState() {
+    //Set the given month here
+    month = 1;
     listOfDates();
     super.initState();
   }
 
-  void listOfDates() {
-    //Select a given year and month with DateTime
-    var now = DateTime(2020, 2);
+  List dates = [];
+  int numberOfweeks;
+  int daysLeft;
+  int days;
+
+  List listOfDates() {
+    //Assign the given year and month
+    var now = DateTime(2021, month);
 
     //Pass the variable to the daysInMonth function to get the number of days
-    //per that month
+    //in the given month
     var totalDays = daysInMonth(now);
 
-    //Use index of the list.generate , method to generate the exact dates for each of the numbers in each
-    //days
-
-    var listOfDates = new List<int>.generate(totalDays, (i) => i + 1);
-
-    //Each index represents the date for a single day in the number of days of the given month
-    print(listOfDates);
+    //Use the generate method to generate indexes with the length as the number of
+    //days in the month.
+    var listOfDates = new List<int>.generate(totalDays, (i) {
+      print('Day ${i + 1} ${i + 1}/1/2021');
+      return i + 1;
+    });
+    return listOfDates;
   }
 
   int daysInMonth(DateTime date) {
-    // First get the first day of the given month
+    //First get the first day of the given month
     var firstDayThisMonth = new DateTime(date.year, date.month, date.day);
 
-    //Get the first day of the next month by incrementing the month number *DateTime works with inetegers*
-    var firstDayOfNextMonth = new DateTime(
+    //Then obtain the first day of the second month
+    var firstDayNextMonth = new DateTime(
       firstDayThisMonth.year,
       firstDayThisMonth.month + 1,
       firstDayThisMonth.day,
     );
 
-    //Find the difference between both months with the difference() method then call in days to get the exact ineteger value
+    //Using the difference method, find the difference between both months and
+    //call inDays to get the integer value
+    var numberOfDays = firstDayNextMonth.difference(firstDayThisMonth).inDays;
 
-    var numberOfDays = firstDayOfNextMonth.difference(firstDayThisMonth).inDays;
-
-    //To get the weeks divide the number of days by 7 to get number of weeks
-
+    //To get the weeks, multiply the number of days by 7
     var weeks = (numberOfDays ~/ 7);
 
-    //To get the weeks and days left, multiply the weeks by 7 to get the number of days in the four weeks
-    //Then subtract that from the number of days to get the remaining days after every 4 weeks of the
-    //given month.
-
+    //To get the days after the weeks, multiply the weeks by 7 to get the total
+    //number of days in 4weeks.
+    //Then subtract it from the total number of days in the month
     var daysAfterWeeks = numberOfDays - (weeks * 7);
+
+    setState(() {
+      days = numberOfDays;
+      numberOfweeks = weeks;
+      daysLeft = daysAfterWeeks;
+    });
 
     print(
       '$firstDayThisMonth has $numberOfDays full days \n $weeks weeks and $daysAfterWeeks days',
     );
-
-    return firstDayOfNextMonth.difference(firstDayThisMonth).inDays;
+    return firstDayNextMonth.difference(firstDayThisMonth).inDays;
   }
 
   @override
@@ -67,7 +78,13 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text('Calender'),
       ),
-      body: Container(),
+      body: Scaffold(
+        body: Center(
+          child: Text(
+            'This month has a full $days days with $numberOfweeks weeks and $daysLeft days',
+          ),
+        ),
+      ),
     );
   }
 }
