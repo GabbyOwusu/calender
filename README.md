@@ -1,6 +1,8 @@
-# calender
+# Calender
 
-A new Flutter project.
+An assignment that generates the number of days, weeks and the overlapping days in a given month.
+Given by @lesliearkorful
+
 
 ## Getting Started
 
