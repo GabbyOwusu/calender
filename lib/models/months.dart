@@ -1,13 +1,13 @@
 class Months {
-  int currentMonth;
-  String monthName;
-  List<DateTime> days;
-  int numberOfDays;
+  int days;
+  int numberofWeeks;
+  int daysLeft;
+  List<int> dates;
 
   Months({
-    this.monthName,
     this.days,
-    this.numberOfDays,
-    this.currentMonth,
+    this.numberofWeeks,
+    this.daysLeft,
+    this.dates,
   });
 }
