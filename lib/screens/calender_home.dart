@@ -6,71 +6,46 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int month;
   @override
-  void initState() {
-    //Set the given month here
-    month = 1;
-    listOfDates();
-    super.initState();
-  }
 
-  List dates = [];
-  int numberOfweeks;
-  int daysLeft;
-  int days;
+  // List listOfDates() {
+  //   var now = DateTime(2021, month);
 
-  List listOfDates() {
-    //Assign the given year and month
-    var now = DateTime(2021, month);
+  //   var totalDays = daysInMonth(now);
 
-    //Pass the variable to the daysInMonth function to get the number of days
-    //in the given month
-    var totalDays = daysInMonth(now);
+  //   var listOfDates = new List<int>.generate(totalDays, (i) {
+  //     print('Day ${i + 1} ${i + 1}/1/2021');
+  //     return i + 1;
+  //   });
+  //   return listOfDates;
+  // }
 
-    //Use the generate method to generate indexes with the length as the number of
-    //days in the month.
-    var listOfDates = new List<int>.generate(totalDays, (i) {
-      print('Day ${i + 1} ${i + 1}/1/2021');
-      return i + 1;
-    });
-    return listOfDates;
-  }
+  // int daysInMonth(DateTime date) {
+  //   var firstDayThisMonth = new DateTime(date.year, date.month, date.day);
 
-  int daysInMonth(DateTime date) {
-    //First get the first day of the given month
-    var firstDayThisMonth = new DateTime(date.year, date.month, date.day);
+  //   var firstDayNextMonth = new DateTime(
+  //     firstDayThisMonth.year,
+  //     firstDayThisMonth.month + 1,
+  //     firstDayThisMonth.day,
+  //   );
 
-    //Then obtain the first day of the second month
-    var firstDayNextMonth = new DateTime(
-      firstDayThisMonth.year,
-      firstDayThisMonth.month + 1,
-      firstDayThisMonth.day,
-    );
+  //   var numberOfDays = firstDayNextMonth.difference(firstDayThisMonth).inDays;
 
-    //Using the difference method, find the difference between both months and
-    //call inDays to get the integer value
-    var numberOfDays = firstDayNextMonth.difference(firstDayThisMonth).inDays;
+  //   var weeks = (numberOfDays ~/ 7);
 
-    //To get the weeks, multiply the number of days by 7
-    var weeks = (numberOfDays ~/ 7);
+  //   var daysAfterWeeks = numberOfDays - (weeks * 7);
 
-    //To get the days after the weeks, multiply the weeks by 7 to get the total
-    //number of days in 4weeks.
-    //Then subtract it from the total number of days in the month
-    var daysAfterWeeks = numberOfDays - (weeks * 7);
+  //   setState(() {
+  //     days = numberOfDays;
+  //     numberOfweeks = weeks;
+  //     daysLeft = daysAfterWeeks;
+  //   });
 
-    setState(() {
-      days = numberOfDays;
-      numberOfweeks = weeks;
-      daysLeft = daysAfterWeeks;
-    });
-
-    print(
-      '$firstDayThisMonth has $numberOfDays full days \n $weeks weeks and $daysAfterWeeks days',
-    );
-    return firstDayNextMonth.difference(firstDayThisMonth).inDays;
-  }
+  //   print(
+  //     '$firstDayThisMonth has $numberOfDays full days \n $weeks weeks and $daysAfterWeeks days',
+  //   );
+  //   return firstDayNextMonth.difference(firstDayThisMonth).inDays;
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +56,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Scaffold(
         body: Center(
           child: Text(
-            'This month has a full $days days with $numberOfweeks weeks and $daysLeft days',
+            'This month has a full days with weeks and days',
           ),
         ),
       ),
